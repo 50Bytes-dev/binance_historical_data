@@ -449,7 +449,7 @@ class BinanceDataDumper:
         # with WorkerPool(n_jobs=threads, start_method="threading") as pool:
         # with WorkerPool(n_jobs=processes, use_dill=True) as pool:
         with WorkerPool(n_jobs=processes) as pool:
-            list_saved_dates = list(tqdm(
+            list_saved_dates = list(
                 pool.imap_unordered(
                     self._download_data_for_1_ticker_1_date,
                     list_args
@@ -458,7 +458,7 @@ class BinanceDataDumper:
                 total=len(list_args),
                 desc=f"{timeperiod_per_file} files to download",
                 unit="files"
-            ))
+            )
         #####
         list_saved_dates = [date for date in list_saved_dates if date]
         LOGGER.debug(
